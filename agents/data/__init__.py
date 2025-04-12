@@ -1,1 +1,1 @@
-from type import Expertise
+from agents.data.types import Expertise

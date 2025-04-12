@@ -1,5 +1,4 @@
 import uuid
-import random
 
 class ChatRoom:
     def __init__(self):
