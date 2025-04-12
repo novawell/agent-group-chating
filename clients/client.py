@@ -36,5 +36,3 @@ class OpenAIClient:
     def set_api_key(self, api_key):
         self.api_key = api_key
         self.client.api_key = api_key
-
-    
