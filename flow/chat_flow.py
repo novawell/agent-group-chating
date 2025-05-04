@@ -4,6 +4,7 @@ from agents import Agent
 from flow.activator import activator
 import uuid
 
+
 class Flow:
     def __init__(self, agents: List[Agent], user_input: str) -> None:
         self.messages = [{"role": "user", "content": user_input}]
@@ -20,13 +21,13 @@ class Flow:
 
     def __len__(self) -> int:
         return len(self.turn_count)
-    
+
     def __getitem__(self, index: int):
         try:
             return self.turn_log[index]
         except IndexError:
             raise IndexError("Index out of range")
-        
+
     def __repr__(self) -> str:
         return f"Flow({self.flow_id}"
 
@@ -42,9 +43,9 @@ class Flow:
             print("플로우를 종료합니다.")
             print(self.messages)
             return
-        
+
         print(self)
-        print("="*20, f"Turn {self.turn_count}", "="*20)
+        print("=" * 20, f"Turn {self.turn_count}", "=" * 20)
         loop = asyncio.get_event_loop()
         responses = loop.run_until_complete(self.get_agent_response(agents))
 
@@ -66,4 +67,5 @@ class Flow:
         # 첫 번째 턴을 시작
         print(self.flow_id, "플로우 시작")
         self.turn(self.agents)
-        return
+
+        return self.turn_log

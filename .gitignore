@@ -8,4 +8,5 @@ __pycache__
 *.log
 .env
 
-expertise-texts/
+expertise-texts
+cadedate_items

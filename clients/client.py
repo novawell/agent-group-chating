@@ -3,6 +3,7 @@
 
 from openai import OpenAI
 
+
 class OpenAIClient:
     def __init__(self, api_key, model="gpt-4o"):
         self.model = model
@@ -11,21 +12,18 @@ class OpenAIClient:
 
     def __repr__(self):
         return f"OpenAIClient(model={self.model})"
-    
+
     def __str__(self):
         return f"OpenAIClient with model {self.model}"
 
     def generate_response(self, input_text):
-        response = self.client.responses.create(
-            model=self.model,
-            input=input_text
-        )
+        response = self.client.responses.create(model=self.model, input=input_text)
         return response.output_text
-    
+
     def get_model_info(self):
         model_info = self.client.models.retrieve(model=self.model)
         return model_info
-    
+
     def set_model(self, model):
         self.model = model
         self.client.model = model
