@@ -44,7 +44,7 @@ class VectorStore:
         openai_api_key = init_keys()
         embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key, model="text-embedding-3-small")
 
-        settings = Settings(chroma_db_impl="duckdb")
+        settings = Settings(chroma_db_impl="duckdb", anonymized_telemetry=False)
         client = Client(settings)
 
         self._proxy_embeddings = EmbeddingProxy(embeddings)
