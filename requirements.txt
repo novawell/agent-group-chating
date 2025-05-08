@@ -5,3 +5,4 @@ rank_bm25
 langchain_openai
 langchain_chroma
 langchain_community
+nest_asyncio
