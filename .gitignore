@@ -8,8 +8,8 @@ __pycache__
 *.log
 .env
 
-expertise-texts
-cadedate_items
+# expertise-texts
+# cadedate_items
 vectordb_instance
 
 .streamlit
