@@ -38,7 +38,7 @@ class VectorStore:
         embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key, model="text-embedding-3-small")
 
         self._proxy_embeddings = EmbeddingProxy(embeddings)
-        self._vector_db = Chroma(collection_name=collection_name, embedding_function=self._proxy_embeddings)
+        self._vector_db = Chroma(collection_name=collection_name, embedding_function=self._proxy_embeddings, persist_directory=os.path.join(path, collection_name))
 
     def as_retriever(self):
         return self._vector_db.as_retriever()
