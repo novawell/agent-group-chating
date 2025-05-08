@@ -5,10 +5,6 @@ from typing import List
 import os
 import sys
 
-# DuckDB로 강제 설정
-os.environ["CHROMA_DB_IMPL"] = "duckdb"
-os.environ["PYTHONNOUSERSITE"] = "1"
-
 __import__('pysqlite3')
 import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
