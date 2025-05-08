@@ -9,8 +9,11 @@ from setkeys import init_keys
 
 from time import sleep
 
+from .config_chroma import config_chroma_for_streamlit_deploy
+
 EMBED_DELAY = 0.02  # 20 milliseconds
 
+config_chroma_for_streamlit_deploy()
 
 class EmbeddingProxy:
     def __init__(self, embedding):
