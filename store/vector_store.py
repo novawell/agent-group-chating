@@ -2,14 +2,6 @@ import logging
 import os
 from typing import List
 
-from langchain_openai import OpenAIEmbeddings
-from langchain_chroma.vectorstores import Chroma
-
-from setkeys import init_keys
-
-from time import sleep
-
-EMBED_DELAY = 0.02  # 20 milliseconds
 
 import os
 import sys
@@ -21,6 +13,16 @@ os.environ["PYTHONNOUSERSITE"] = "1"
 __import__('pysqlite3')
 import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
+
+from langchain_openai import OpenAIEmbeddings
+from langchain_chroma.vectorstores import Chroma
+
+from setkeys import init_keys
+
+from time import sleep
+
+EMBED_DELAY = 0.02  # 20 milliseconds
 
 class EmbeddingProxy:
     def __init__(self, embedding):
