@@ -13,9 +13,6 @@ __import__('pysqlite3')
 import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
-from chromadb import Client
-from chromadb.config import Settings
-
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma.vectorstores import Chroma
 
@@ -44,15 +41,8 @@ class VectorStore:
         openai_api_key = init_keys()
         embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key, model="text-embedding-3-small")
 
-        settings = Settings(chroma_db_impl="duckdb", anonymized_telemetry=False)
-        client = Client(settings)
-
         self._proxy_embeddings = EmbeddingProxy(embeddings)
-        self._vector_db = Chroma(
-            client=client,
-            collection_name=collection_name,
-            embedding_function=self._proxy_embeddings
-        )
+        self._vector_db = Chroma(collection_name=collection_name, embedding_function=self._proxy_embeddings, persist_directory=os.path.join(path, collection_name))
 
     def as_retriever(self):
         return self._vector_db.as_retriever()
