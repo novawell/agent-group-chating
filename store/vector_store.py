@@ -10,6 +10,10 @@ import sys
 os.environ["CHROMA_DB_IMPL"] = "duckdb"
 os.environ["PYTHONNOUSERSITE"] = "1"
 
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma.vectorstores import Chroma
 
