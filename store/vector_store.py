@@ -5,6 +5,8 @@ from typing import List
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma.vectorstores import Chroma
 
+from setkeys import init_keys
+
 from time import sleep
 
 EMBED_DELAY = 0.02  # 20 milliseconds
@@ -26,7 +28,7 @@ class EmbeddingProxy:
 class VectorStore:
     def __init__(self, path="vectordb_instance/", collection_name="chroma", embeddings=None):
         # TODO: Add More Embedding Options
-        openai_api_key = os.environ["OPENAI_API_KEY"]
+        openai_api_key = init_keys()
         embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key, model="text-embedding-3-small")
 
         self._proxy_embeddings = EmbeddingProxy(embeddings)

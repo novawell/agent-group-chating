@@ -41,7 +41,6 @@ class Flow:
     def turn(self, agents: List[Agent]):
         if self.turn_count > 5:
             print("플로우를 종료합니다.")
-            print(self.messages)
             return
 
         print(self)

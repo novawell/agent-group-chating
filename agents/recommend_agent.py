@@ -2,6 +2,7 @@ from clients import OpenAIClient
 import os
 from dotenv import load_dotenv
 from agents.data.types import Expertise
+from setkeys import init_keys
 
 # 에이전트는 OpenAIClient를 상속받아 생성됩니다.
 
@@ -28,8 +29,7 @@ class Agent(OpenAIClient):
     # 데이터 셋을 통해 에이전트 생성
     # init 함수, 에이전트의 이름, 모델, 프롬프트를 설정
     def __init__(self, model="gpt-4o"):
-        load_dotenv()
-        api_key = os.environ.get("OPENAI_API_KEY")
+        api_key = init_keys()
         super().__init__(api_key, model)
 
         self.chat_data = []

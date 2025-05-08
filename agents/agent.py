@@ -2,6 +2,7 @@ from clients import OpenAIClient
 import os
 from dotenv import load_dotenv
 from agents.data.types import Expertise
+from setkeys import init_keys
 
 # 에이전트는 OpenAIClient를 상속받아 생성됩니다.
 
@@ -17,23 +18,24 @@ PROMPT = """
 아래는 몇 가지 제한 사항입니다.
 
 당신은 최대한 당신의 분야에 대한 이야기만 하세요.
-그리고, 다른 전문가들의 의견에 대응하는 모습을 최대한 보여주세요.
+그리고, **다른 전문가들의 의견에 답변하고 상호작용하는 모습**을 최대한 보여주세요.
 
 정형화된 답변은 지양하고,
-자연스러운 대화의 톤을 유지하세요.
+**자연스러운 대화의 **톤을 유지하세요.
 친구 의사 동료와 대화를 함께 나눈다고 생각하세요.
 
-200자 이내의 일반 대화 형식으로 대답하세요.
+**200자 이내의 한국어**인 **일반 대화 형식**으로 대답하세요.
 """
 
 class Agent(OpenAIClient):
     # 데이터 셋을 통해 에이전트 생성
     # init 함수, 에이전트의 이름, 모델, 프롬프트를 설정
     def __init__(self, expertise: Expertise, model="gpt-4o"):
-        load_dotenv()
         self.expertise = expertise
-        api_key = os.environ.get("OPENAI_API_KEY")
+
+        api_key = init_keys()
         super().__init__(api_key, model)
+
         self.chat_data = []
         self.chat_data.append({
             "role": "system",
@@ -85,4 +87,9 @@ class Agent(OpenAIClient):
     def respond(self):
         response = self.generate_response(self.chat_data)
         self.add_message("assistant", response)
+        response = {
+            "role": self.expertise.subject,
+            "content": response
+        }
+
         return response
