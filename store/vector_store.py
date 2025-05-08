@@ -2,6 +2,8 @@ import logging
 import os
 from typing import List
 
+from chromadb import Client
+from chromadb.config import Settings
 
 import os
 import sys
@@ -42,8 +44,15 @@ class VectorStore:
         openai_api_key = init_keys()
         embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key, model="text-embedding-3-small")
 
+        settings = Settings(chroma_db_impl="duckdb")
+        client = Client(settings)
+
         self._proxy_embeddings = EmbeddingProxy(embeddings)
-        self._vector_db = Chroma(collection_name=collection_name, embedding_function=self._proxy_embeddings,) # persist_directory 제거
+        self._vector_db = Chroma(
+            client=client,
+            collection_name=collection_name,
+            embedding_function=self._proxy_embeddings
+        )
 
     def as_retriever(self):
         return self._vector_db.as_retriever()
